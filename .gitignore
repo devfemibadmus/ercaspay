@@ -1,2 +1,6 @@
+.env
+
 dist
 ercaspay.egg-info
+
+__pycache__
