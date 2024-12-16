@@ -7,7 +7,11 @@
         <meta name="description" content="Get Closer With Flexible Payment">
         <meta name="format-detection" content="telephone=no">
         <link rel="icon" sizes="32x32" type="image/x-icon" href="https://sandbox.ercaspay.com/favicon-32x32.png">
-        <link rel='stylesheet' href="/ercaspay_static/style.css">
+        {% if dj %}
+            <link rel='stylesheet' href="/static/style.css">
+        {% else %}
+            <link rel='stylesheet' href="/ercaspay/static/style.css">
+        {% endif %}
     </head>
     <body>
         <div id="__nuxt">
@@ -26,6 +30,7 @@
                             </div>
                             <form class="flex flex-col gap-2 px-8 py-1 bg-[white] rounded-b-xl" data-v-f46f6826="" method="post">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                 <div class="flex flex-col gap-2 py-4 bg-[white] rounded-b-xl" data-v-f46f6826="">
                                     <div class="relative" data-v-f46f6826="">
                                         <label class="block text-sm text-gray-700">First Name</label><input type="text" placeholder="First Name" name="first_name" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" required><!---->
@@ -40,7 +45,7 @@
                                         <label for="amount" class="block text-sm text-gray-700">Amount (NGN)</label><input type="text" name="amount" id="amount" placeholder="Enter Amount" name="amount" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" required><!---->
                                     </div>
                                     <div class="relative" data-v-f46f6826="">
-                                        <label class="block text-sm text-gray-700">Phone Number{% if website.no_phone %} (Optional){% endif %}</label><input type="tel" placeholder="e.g +234xxx" name="phone_number" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" {% if not website.no_phone %}required{% endif %}><!---->
+                                        <label class="block text-sm text-gray-700">Phone Number{% if website.no_phone %} (Optional){% endif %}</label><input type="tel" placeholder="e.g 09061628409" name="phone_number" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" {% if not website.no_phone %}required{% endif %}><!---->
                                     </div>
                                     <!---->
                                 </div>
