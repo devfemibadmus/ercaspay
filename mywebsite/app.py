@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-from ercaspay import ErcaspayPage
+from flask import Flask
+from ercaspay.flask import ErcaspayPage
 from typing import Dict
 
 app = Flask(__name__)
@@ -30,11 +30,11 @@ def create_transaction(data: Dict):
     print(f"Domain: {domain}, Status: {status}, Amount: {amount}, Customer: {customer_name}")
 
 
-hello_extension = ErcaspayPage(app, "Sponsor Scholarship Contribution", create_transaction=create_transaction)
+hello_extension = ErcaspayPage(app, "Sponsor Scholarship Contribution", create_transaction=create_transaction, ercaspay_url='/', currency="NGN")
 
 @app.route("/")
 def hello_world():
-    return render_template("a.html")
+    return "Hello World!"
 
 if __name__ == "__main__":
     app.run(debug=True)
