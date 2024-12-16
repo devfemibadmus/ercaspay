@@ -1,0 +1,2 @@
+include ercaspay/templates/*
+include ercaspay/static/*

@@ -17,7 +17,7 @@ def cancel_transaction(modeladmin, request, queryset):
 def update_status(modeladmin, request, queryset):
     for transaction in queryset:
         response = ercaspay.status(transaction.ercaspay_reference)
-        print(response)
+        # print(response)
         if response.get('errorCode'):
             messages.error(request, f"Transaction {transaction.full_name} {response.get('explanation')}.")
         else:

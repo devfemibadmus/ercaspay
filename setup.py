@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import codecs
 import os
 
@@ -11,13 +11,16 @@ with codecs.open("C:\\Users\\devfe\\Desktop\\ercaspay\\Readme.md", encoding="utf
 # Setting up
 setup(
     name="ercaspay",
-    version='1.0.0.1',
+    version='1.0.0.3',
     author="Dev Femi Badmus",
     author_email="devfemibadmus@gmail.com",
     description='ercaspay plugin',
     long_description_content_type="text/markdown",
     long_description=long_description,
-    packages=["ercaspay"],
+    packages=find_packages(),
+    package_data={
+        "ercaspay": ["templates/*", "static/*"],
+    },
     keywords=['ercaspay', 'ercas payment plugin'],
     url="https://github.com/devfemibadmus/ercaspay",
     classifiers=[
