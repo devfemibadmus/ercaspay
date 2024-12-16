@@ -72,5 +72,5 @@ Learn more: https://github.com/devfemibadmus/ercaspay
 """
 
 from .utility import *
-from .ercaspay import Ercaspay
+from .ercaspay import Ercaspay, ErcaspayPage
 

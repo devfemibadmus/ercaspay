@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% if website.name %}{{website.name}} || {% endif %}Payment Page</title>
+        <meta name="description" content="Get Closer With Flexible Payment">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="icon" sizes="32x32" type="image/x-icon" href="https://sandbox.ercaspay.com/favicon-32x32.png">
+        <link rel='stylesheet' href="/ercaspay_static/style.css">
+    </head>
+    <body>
+        <div id="__nuxt">
+            <main class="grid w-screen min-h-dvh !bg-[#ffe8d2]">
+                <!--[-->
+                <div class="w-screen min-h-svh !bg-[#ffe8d2] bg-cover bg-center flex flex-col justify-start lg:justify-center pt-4 lg:pt-0" data-v-f46f6826="" style="background-image:url('https://sandbox.ercaspay.com/webbings-bg.png');">
+                    <div class="flex items-center justify-center w-full h-full" data-v-f46f6826="">
+                        <!---->
+                        <div class="bg-[white] w-11/12 lg:max-w-lg py-2 h-fit rounded-xl flex flex-col" data-v-f46f6826="">
+                            <div class="flex flex-col items-center pb-2 bg-[#FCFCFD] rounded-t-xl" data-v-f46f6826="">
+                                <div class="flex items-center justify-center p-1 bg-white rounded-full size-10 aspect-square" data-v-f46f6826=""><img src="/static/logo.png" alt="logo" class="object-contain w-full h-full rounded-full" data-v-f46f6826=""></div>
+                                <div class="flex flex-col items-center gap-1 py-1 bg-[#FCFCFD] rounded-t-xl" data-v-f46f6826="">
+                                    <h2 class="font-bold text-gray-800 text-md" data-v-f46f6826="">{{website.name}}</h2>
+                                    <p class="text-sm text-center text-gray-700">{{website.description}}</p>
+                                </div>
+                            </div>
+                            <form class="flex flex-col gap-2 px-8 py-1 bg-[white] rounded-b-xl" data-v-f46f6826="" method="post">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <div class="flex flex-col gap-2 py-4 bg-[white] rounded-b-xl" data-v-f46f6826="">
+                                    <div class="relative" data-v-f46f6826="">
+                                        <label class="block text-sm text-gray-700">First Name</label><input type="text" placeholder="First Name" name="first_name" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" required><!---->
+                                    </div>
+                                    <div class="relative" data-v-f46f6826="">
+                                        <label class="block text-sm text-gray-700">Last Name</label><input type="text" placeholder="Last Name" name="last_name" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" required><!---->
+                                    </div>
+                                    <div class="relative" data-v-f46f6826="">
+                                        <label class="block text-sm text-gray-700">Email Address</label><input type="text" placeholder="Email Address" name="email" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" required><!---->
+                                    </div>
+                                    <div class="relative" data-v-f46f6826="">
+                                        <label for="amount" class="block text-sm text-gray-700">Amount (NGN)</label><input type="text" name="amount" id="amount" placeholder="Enter Amount" name="amount" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" required><!---->
+                                    </div>
+                                    <div class="relative" data-v-f46f6826="">
+                                        <label class="block text-sm text-gray-700">Phone Number{% if website.no_phone %} (Optional){% endif %}</label><input type="tel" placeholder="e.g +234xxx" name="phone_number" size="200" maxlength="200" class="w-full block text-gray-800 bg-white border border-gray-300 rounded-[8px] h-12 mt-1 focus p-4 focus:border-ercas focus:outline-0 disabled:bg-gray-100 transition-all duration-300" {% if not website.no_phone %}required{% endif %}><!---->
+                                    </div>
+                                    <!---->
+                                </div>
+                                <button type='submit' class="flex capitalize items-center gap-2 px-6 disabled:text-white disabled:bg-ercas/70 disabled:cursor-wait btn relative h-12 btn-primary w-full" data-v-f46f6826="">
+                                    <!---->
+                                    <span class="transition-all">
+                                        <!--[--> Pay <!--]-->
+                                    </span>
+                                    <!---->
+                                </button>
+                                <div class="flex items-center justify-center gap-2" data-v-f46f6826="">
+                                    <img src="data:image/svg+xml,%3csvg%20width=&#39;11&#39;%20height=&#39;11&#39;%20viewBox=&#39;0%200%2011%2011&#39;%20fill=&#39;none&#39;%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%3e%3cpath%20d=&#39;M5.56136%205.91536C5.43451%205.91388%205.31024%205.9513%205.2053%206.02257C5.10035%206.09385%205.01976%206.19557%204.97437%206.31403C4.92898%206.4325%204.92097%206.56203%204.95142%206.68518C4.98187%206.80834%205.04933%206.9192%205.14469%207.00286V7.58203C5.14469%207.69254%205.18859%207.79852%205.26673%207.87666C5.34487%207.9548%205.45085%207.9987%205.56136%207.9987C5.67187%207.9987%205.77785%207.9548%205.85599%207.87666C5.93413%207.79852%205.97803%207.69254%205.97803%207.58203V7.00286C6.0734%206.9192%206.14085%206.80834%206.1713%206.68518C6.20175%206.56203%206.19374%206.4325%206.14836%206.31403C6.10297%206.19557%206.02237%206.09385%205.91743%206.02257C5.81248%205.9513%205.68822%205.91388%205.56136%205.91536ZM7.64469%204.2487V3.41536C7.64469%202.86283%207.4252%202.33293%207.0345%201.94223C6.6438%201.55152%206.1139%201.33203%205.56136%201.33203C5.00883%201.33203%204.47892%201.55152%204.08822%201.94223C3.69752%202.33293%203.47803%202.86283%203.47803%203.41536V4.2487C3.14651%204.2487%202.82856%204.38039%202.59414%204.61481C2.35972%204.84923%202.22803%205.16718%202.22803%205.4987V8.41536C2.22803%208.74688%202.35972%209.06483%202.59414%209.29925C2.82856%209.53367%203.14651%209.66536%203.47803%209.66536H7.64469C7.97621%209.66536%208.29416%209.53367%208.52858%209.29925C8.763%209.06483%208.89469%208.74688%208.89469%208.41536V5.4987C8.89469%205.16718%208.763%204.84923%208.52858%204.61481C8.29416%204.38039%207.97621%204.2487%207.64469%204.2487ZM4.31136%203.41536C4.31136%203.08384%204.44306%202.7659%204.67748%202.53148C4.9119%202.29706%205.22984%202.16536%205.56136%202.16536C5.89288%202.16536%206.21082%202.29706%206.44524%202.53148C6.67967%202.7659%206.81136%203.08384%206.81136%203.41536V4.2487H4.31136V3.41536ZM8.06136%208.41536C8.06136%208.52587%208.01746%208.63185%207.93932%208.70999C7.86118%208.78813%207.7552%208.83203%207.64469%208.83203H3.47803C3.36752%208.83203%203.26154%208.78813%203.1834%208.70999C3.10526%208.63185%203.06136%208.52587%203.06136%208.41536V5.4987C3.06136%205.38819%203.10526%205.28221%203.1834%205.20407C3.26154%205.12593%203.36752%205.08203%203.47803%205.08203H7.64469C7.7552%205.08203%207.86118%205.12593%207.93932%205.20407C8.01746%205.28221%208.06136%205.38819%208.06136%205.4987V8.41536Z&#39;%20fill=&#39;%2398A2B3&#39;/%3e%3c/svg%3e" class="w-[10px] h-[10px]" data-v-f46f6826="">
+                                    <p class="text-sm font-semibold text-gray-400" data-v-f46f6826="">Secured by</p>
+                                    <img src="https://sandbox.ercaspay.com/_nuxt/logo.BiwWHVNC.png" class="w-14" data-v-f46f6826="">
+                                </div>
+                            </form>
+                        </div>
+                        <!---->
+                    </div>
+                </div>
+                <!--]-->
+            </main>
+        </div>
+        <div id="teleports"></div>
+    <body>
+</html>
