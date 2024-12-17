@@ -179,6 +179,10 @@ ERCASPAY = {
 
 # Add path in ur project or app urls, specify any name e.g payment or ercaspay (urls.py)
 path('ercaspay/', include('ercaspay.urls')),
+
+# remember to run python manage.py migrate
+
+# checkout transaction in ur django admin
 ```
 
 ## Response Handling
