@@ -10,7 +10,7 @@ with codecs.open("C:\\Users\\devfe\\Desktop\\ercaspay\\Readme.md", encoding="utf
 # Setting up
 setup(
     name="ercaspay",
-    version='1.0.0.3',
+    version='1.0.0.2',
     author="Dev Femi Badmus",
     author_email="devfemibadmus@gmail.com",
     description='ercaspay plugin',

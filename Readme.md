@@ -80,7 +80,7 @@ ercaspay = Ercaspay(
 
 To perform any transaction (via card, USSD, or bank transfer), you first need to initialize the transaction.
 
-### Example: Transaction
+### Example: Common Transaction
 
 ```python
 # Create the transaction
@@ -90,8 +90,42 @@ print(response)
 # Get transaction reference
 transaction_ref = response['responseBody'].get('transactionReference')
 
-```
+# checking status
+response = transaction.status()
+print(response)
 
+#  checking details
+response = transaction.details()
+print(response)
+
+# more in the test/test.py
+
+```
+### Example: Card Transaction
+
+```python
+# Create the transaction
+response = ercaspay.card()
+print(response)
+
+# Get response code
+response_code = response['responseBody'].get('code')
+
+# if code is C0: transaction successful no auth required
+
+# if code is C2: redirect customer to response['responseBody']['checkoutUrl']
+
+# if code is C1: otp has been sent to customer phone
+response = transaction.submit_otp(otp)
+print(response)
+
+#  request new otp
+response = transaction.resend_otp()
+print(response)
+
+# code are determine by the type of card use
+
+```
 
 ## Sample Flask and Django Plugin
 
@@ -166,7 +200,7 @@ Failure responses have a fixed structure and typically include the following key
 
 Success responses contain more data, with a dynamic `responseBody` depending on the API call. Examples of success responses:
 
-1.  Example for a successful transaction:
+ -  Example for a successful transaction:
     
     ```json
     {
@@ -182,7 +216,7 @@ Success responses contain more data, with a dynamic `responseBody` depending on 
     
     ```
     
-2.  Example for a pending transaction requiring user action:
+ -  Example for a pending transaction requiring user action:
     
     
     ```json
@@ -204,6 +238,39 @@ Success responses contain more data, with a dynamic `responseBody` depending on 
     }
     
     ```
+ -  Some Others
+
+```python
+checkout
+{'requestSuccessful': True, 'responseCode': 'success', 'responseMessage': 'success', 'responseBody': {'paymentReference': 'nigga@example.com', 'transactionReference': 'ERCS|20241217025313|1734400393621', 'checkoutUrl': 'https://sandbox-checkout.ercaspay.com/ERCS|20241217025313|1734400393621'}}
+
+card C1
+{'requestSuccessful': True, 'responseCode': 'C1', 'responseMessage': 'success', 'responseBody': {'code': 'C1', 'status': 'PENDING', 'gatewayMessage': 'Kindly enter the OTP sent to 234805***1111', 'supportMessage': "Didn't get the OTP? Dial *723*0# on your phone (MTN,Etisalat,Airtel) Glo,use *805*0#.", 'transactionReference': 'ERCS|20241217025313|1734400393621', 'paymentReference': 'nigga@example.com', 'gatewayReference': 'oCKuDTqT2l', 'amount': 100050, 'callbackUrl': 'https://nigga.com'}}
+
+card C2
+{'requestSuccessful': True, 'responseCode': 'success', 'responseMessage': 'success', 'responseBody': {'paymentReference': 'nigga@example.com', 'transactionReference': 'ERCS|20241217050928|1734408568497', 'checkoutUrl': 'https://sandbox-checkout.ercaspay.com/ERCS|20241217050928|1734408568497'}}
+
+error
+{'errorCode': '400', 'message': 'Bad Request', 'explanation': 'wrong amount provided'} 
+
+submit otp
+{'requestSuccessful': True, 'responseCode': 'success', 'responseMessage': 'success', 'responseBody': {'status': 'SUCCESS', 'gatewayMessage': 'OTP Authorization Successful', 'transactionReference': 'ERCS|20241217025313|1734400393621', 'paymentReference': 'nigga@example.com', 'amount': 100000.55, 'callbackUrl': 'https://nigga.com'}}
+
+check transaction status
+{'requestSuccessful': True, 'responseCode': 'success', 'responseMessage': 'success', 'responseBody': {'paymentReference': 'nigga@example.com', 'amount': 100000.55, 'status': 'PAID', 'description': None, 'callbackUrl': 'https://nigga.com?reference=nigga@example.com&status=PAID&transRef=ERCS|20241217025313|1734400393621'}}
+
+cancel transaction
+{'requestSuccessful': True, 'responseCode': 'success', 'responseMessage': 'success', 'responseBody': {'callback_url': 'https://nigga.com?reference=nigga@example.com&status=CANCELLED'}}
+
+{'requestSuccessful': True, 'responseCode': 'success', 'responseMessage': 'success', 'responseBody': {'paymentReference': 'nigga@example.com', 'amount': 122200.55, 'status': 'CANCELLED', 'description': None, 'callbackUrl': 'https://nigga.com?reference=nigga@example.com&status=CANCELLED&transRef=ERCS|20241216075712|1734332232972'}}
+
+check transaction details
+{'amount': '111111', 'paymentReference': '23784c3611e74debad224b23cc76b80f_20241216205542', 'paymentMethods': 'card, bank-transfer, qrcode, ussd', 'customerName': 'ttttt testing', 'currency': 'NGN', 'customerEmail': 'thegudbadguys@gmail.com', 'customerPhoneNumber': '09082838383', 'redirectUrl': 'http://127.0.0.1:8000/ercaspay/auth', 'description': None, 'metadata': None, 'feeBearer': None}
+{'errorCode': '400', 'message': 'Bad Request', 'explanation': 'This payment has already been completed'}
+
+for more test use the test.py file
+
+```
 
 ## License  
 This project is managed under a license by [Ercaspay](https://ercaspay.com).  
