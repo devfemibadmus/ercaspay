@@ -54,6 +54,8 @@ valid_payment_methods = ['card', 'bank-transfer', 'qrcode', 'ussd'] # not effect
 
 baseUrl = "https://api.merchant.staging.ercaspay.com/api/v1"
 bankUrl = f"{baseUrl}/payment/bank-transfer/request-bank-account"
+resendOptUrl = f"{baseUrl}/payment/cards/otp/resend"
+submitOptUrl = f"{baseUrl}/payment/cards/otp/submit"
 verifyUrl = f"{baseUrl}/payment/transaction/verify"
 cardUrl = f"{baseUrl}/payment/cards/initialize"
 initiateUrl = f"{baseUrl}/payment/initiate"
@@ -95,12 +97,17 @@ def get_token(env: str = None):
         FileNotFoundError: If the environment file is not found.
         ValueError: If no 'Authorization' token is found.
     """
-    if env and not os.path.exists(env):
+    if not env:
+        if not os.path.exists('.env'):
+            raise FileNotFoundError("Environment path not passed and default file '.env' not found.")
+        env = '.env'
+    elif not os.path.exists(env):
         raise FileNotFoundError(f"Environment file '{env}' not found.")
-    load_env_vars(env or '.env')
+    
+    load_env_vars(env)
     token = os.environ.get('ERCASPAY_AUTHORIZATION')
     if not token:
-        raise ValueError(f"No 'Authorization' found in {env or '.env'}")
+        raise ValueError(f"No 'Authorization' found in {env}")
     return token
 
 
@@ -261,6 +268,14 @@ def get_transaction_ref(transaction_ref: str, self_transaction_ref: str):
             raise ValueError("Transaction reference is required. Please provide a valid transaction reference or initiate the transaction.")
         return self_transaction_ref
     return transaction_ref
+
+
+def get_gateway_ref(gatewayReference: str, self_gatewayReference: str):
+    if gatewayReference is None:
+        if self_gatewayReference is None:
+            raise ValueError("Gateway reference is required. Please provide a valid gateway reference or caard the transaction.")
+        return self_gatewayReference
+    return gatewayReference
 
 
 def supported_banks() -> dict:

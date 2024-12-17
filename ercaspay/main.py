@@ -12,9 +12,10 @@ class Ercaspay:
 
     Learn more: https://github.com/devfemibadmus/ercaspay
     """
-    def __init__(self, rsa_key: str = None, env: str = ".env", token: str = None):
+    def __init__(self, rsa_key: str = None, env: str = None, token: str = None):
         self.token = token or get_token(env)
         self.rsa_key = rsa_key
+        self.gatewayReference = None
         self.transaction_ref = None
         self.headers = {"Accept": "application/json", "Content-Type": "application/json", "Authorization": f"Bearer {self.token}"}
 
@@ -233,5 +234,40 @@ class Ercaspay:
                 }
             }
         }
-        return send_payment_request(cardUrl, payload, self.headers)
+        response = send_payment_request(cardUrl, payload, self.headers)
+        self.gatewayReference = response.get('responseBody', {}).get('gatewayReference')
+        return response
+
+    def resend_otp(self, transaction_ref: str = None, gatewayReference: str = None) -> dict:
+        """
+        Resends an OTP for a specific transaction.
+
+        Args:
+            transaction_ref (str): Unique reference for the transaction. Defaults to the reference used in the initiated transaction (self).
+            gatewayReference (str): Gateway reference for the transaction. Defaults to the gateway reference used in the initiated transaction (self).
+
+        Returns:
+            dict: Response from the API after resending the OTP.
+        """
+        transaction_ref = get_transaction_ref(transaction_ref, self.transaction_ref)
+        gatewayReference = get_gateway_ref(gatewayReference, self.gatewayReference)
+        return send_payment_request(f"{resendOptUrl}/{transaction_ref}", {'gatewayReference': gatewayReference, 'amount': '100050'}, self.headers)
+
+    def submit_otp(self, otp: str, transaction_ref: str = None, gatewayReference: str = None) -> dict:
+        """
+        Submits an OTP for a specific transaction to complete the process.
+
+        Args:
+            otp (str): The OTP provided by the customer.
+            transaction_ref (str): Unique reference for the transaction. Defaults to the reference used in the initiated transaction (self).
+            gatewayReference (str): Gateway reference for the transaction. Defaults to the gateway reference used in the initiated transaction (self).
+
+        Returns:
+            dict: Response from the API after submitting the OTP.
+        """
+        transaction_ref = get_transaction_ref(transaction_ref, self.transaction_ref)
+        gatewayReference = get_gateway_ref(gatewayReference, self.gatewayReference)
+        return send_payment_request(f"{submitOptUrl}/{transaction_ref}", {'gatewayReference': gatewayReference, 'otp': otp}, self.headers)
+
+
 
