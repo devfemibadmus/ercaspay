@@ -3,7 +3,6 @@ import codecs
 import os
 
 
-
 with codecs.open("C:\\Users\\devfe\\Desktop\\ercaspay\\Readme.md", encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
@@ -20,6 +19,15 @@ setup(
     packages=find_packages(),
     package_data={
         "ercaspay": ["templates/*", "static/*"],
+    },
+    install_requires=[
+        'requests',
+        'pycryptodome',
+    ],
+    entry_points={
+        "console_scripts": [
+            "ercaspay=ercaspay:function",
+        ],
     },
     keywords=['ercaspay', 'ercas payment plugin'],
     url="https://github.com/devfemibadmus/ercaspay",

@@ -74,3 +74,22 @@ Learn more: https://github.com/devfemibadmus/ercaspay
 from .utility import *
 from .main import Ercaspay
 
+import argparse
+
+
+def function():
+    parser = argparse.ArgumentParser(description="Bank operations")
+    parser.add_argument("--bank", nargs="?", const="list", type=str, help="List all banks or check if a specific bank is supported")
+    args = parser.parse_args()
+
+    response = supported_banks()
+    banks = response.get('responseBody', [])
+
+    if args.bank == "list":
+        for bank in banks:
+            print(bank)
+    elif args.bank:
+        print(f"{args.bank} is supported." if args.bank.lower() in [bank.lower() for bank in banks] else f"{args.bank} is not supported.")
+    else:
+        parser.print_help()
+
