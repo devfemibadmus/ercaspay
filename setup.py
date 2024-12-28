@@ -1,16 +1,21 @@
-from setuptools import setup, find_packages
-import codecs
 import os
+from codecs import open
+from setuptools import setup, find_packages
 
 
-with codecs.open("C:\\Users\\devfe\\Desktop\\ercaspay\\Readme.md", encoding="utf-8") as fh:
-    long_description = "\n" + fh.read()
+here = os.path.abspath(os.path.dirname(__file__))
+
+os.chdir(here)
+
+with open(os.path.join(here, "Readme.md"), "r", encoding="utf-8") as fp:
+    long_description = fp.read()
+
 
 
 # Setting up
 setup(
     name="ercaspay",
-    version='1.0.0.2',
+    version='1.0.0.3',
     author="Dev Femi Badmus",
     author_email="devfemibadmus@gmail.com",
     description='ercaspay plugin',
@@ -28,6 +33,11 @@ setup(
         "console_scripts": [
             "ercaspay=ercaspay:function",
         ],
+    },
+    project_urls={
+        "Slack": "https://app.slack.com/client/T083P8D99EY/C083LL3NMDZ",
+        "Documentation": "https://ercaspay.com",
+        "Source Code": "https://github.com/devfemibadmus/ercaspay",
     },
     keywords=['ercaspay', 'ercas payment plugin'],
     url="https://github.com/devfemibadmus/ercaspay",

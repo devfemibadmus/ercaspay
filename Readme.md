@@ -1,4 +1,4 @@
-
+![Downloads](https://pepy.tech/badge/ercaspay)
 ![Ercaspay](https://sandbox.ercaspay.com/_nuxt/logo.BiwWHVNC.png)
 
 **ERCASPAY** is a Python package that interacts with the [Ercaspay Payment Platform](https://ercaspay.com). It supports various payment methods such as card transactions, USSD, and bank transfers. Along with the Python package, the repo includes a Django app and a Flask app for integrating Ercaspay functionality into web applications.
